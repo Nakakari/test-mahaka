@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\masterDataTargetController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [masterDataTargetController::class, 'index']);
+Route::post('/list_master_data_target', [masterDataTargetController::class, 'list_data']);
