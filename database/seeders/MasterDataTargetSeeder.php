@@ -16,56 +16,49 @@ class MasterDataTargetSeeder extends Seeder
     public function run()
     {
         M_masterDataTarget::create([
-            'kode_rekening' => 41101.01,
-            'nama_rekening' => 'Pajak Hotel Bintang 1',
+            'kode_rekening' => 1,
             'target' => 70500000,
             'tgl_mulai' => '2021-01-01',
             'tgl_akhir' => '2021-01-31'
         ]);
 
         M_masterDataTarget::create([
-            'kode_rekening' => 41101.02,
-            'nama_rekening' => 'Pajak Hotel Bintang 2',
+            'kode_rekening' => 2,
             'target' => 70750000,
             'tgl_mulai' => '2021-01-01',
             'tgl_akhir' => '2021-01-31'
         ]);
 
         M_masterDataTarget::create([
-            'kode_rekening' => 41101.01,
-            'nama_rekening' => 'Pajak Hotel Bintang 1',
+            'kode_rekening' => 1,
             'target' => 60500000,
             'tgl_mulai' => '2022-01-01',
             'tgl_akhir' => '2022-01-31'
         ]);
 
         M_masterDataTarget::create([
-            'kode_rekening' => 41101.02,
-            'nama_rekening' => 'Pajak Hotel Bintang 2',
+            'kode_rekening' => 2,
             'target' => 50750000,
             'tgl_mulai' => '2022-01-01',
             'tgl_akhir' => '2022-01-31'
         ]);
 
         M_masterDataTarget::create([
-            'kode_rekening' => 41101.03,
-            'nama_rekening' => 'Pajak Hotel Bintang 3',
+            'kode_rekening' => 3,
             'target' => 50500000,
             'tgl_mulai' => '2022-01-01',
             'tgl_akhir' => '2022-01-31'
         ]);
 
         M_masterDataTarget::create([
-            'kode_rekening' => 41101.04,
-            'nama_rekening' => 'Pajak Hotel Bintang 4',
+            'kode_rekening' => 4,
             'target' => 50250000,
             'tgl_mulai' => '2022-01-01',
             'tgl_akhir' => '2022-01-31'
         ]);
 
         M_masterDataTarget::create([
-            'kode_rekening' => 41101.05,
-            'nama_rekening' => 'Pajak Hotel Bintang 5',
+            'kode_rekening' => 5,
             'target' => 50000000,
             'tgl_mulai' => '2022-01-01',
             'tgl_akhir' => '2022-01-31'

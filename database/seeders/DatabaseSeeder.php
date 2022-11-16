@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             EntryTransHarianSeeder::class,
             MasterDataTargetSeeder::class,
             EntryViaPembayaran::class,
+            tabelRekening::class
         ]);
     }
 }

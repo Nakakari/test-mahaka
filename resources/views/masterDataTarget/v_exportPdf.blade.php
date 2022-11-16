@@ -4,7 +4,7 @@
             <td width="50px"></td>
             <td width="140px"></td>
             <td width="140px"></td>
-            <td width="200px"></td>
+            <td width="100px"></td>
             <?php for ($b = 0; $b < 3; $b++) { ?>
             <td width="100px"></td>
             <?php } ?>
@@ -31,7 +31,7 @@
             <td width="50px"></td>
             <td width="140px"></td>
             <td width="140px"></td>
-            <td width="200px"></td>
+            <td width="100px"></td>
             <?php for ($b = 0; $b < 3; $b++) { ?>
             <td width="100px"></td>
             <?php } ?>
@@ -91,7 +91,7 @@
             </td>
             <td width="140px" style="text-align: center; border: 1px solid black; border-collapse: collapse;"><b>3</b>
             </td>
-            <td width="200px" style="text-align: center; border: 1px solid black; border-collapse: collapse;"><b>4</b>
+            <td width="100px" style="text-align: center; border: 1px solid black; border-collapse: collapse;"><b>4</b>
             </td>
             <td width="100px" style="text-align: center; border: 1px solid black; border-collapse: collapse;"><b>5</b>
             </td>
@@ -118,7 +118,7 @@
                 <td width="140px" style="text-align: left; border: 1px solid black; border-collapse: collapse;">
                     <b>{{ $item->nama_rekening }}</b>
                 </td>
-                <td width="200px" style="text-align: left; border: 1px solid black; border-collapse: collapse;">
+                <td width="100px" style="text-align: left; border: 1px solid black; border-collapse: collapse;">
                     <b>{{ number_format($item->total_target, 2, ',', '.') }}</b>
                 </td>
                 <td width="100px" style="text-align: left; border: 1px solid black; border-collapse: collapse;"><b></b>
@@ -139,7 +139,7 @@
             <td colspan="3" style="text-align: center; border: 1px solid black; border-collapse: collapse;">
                 <b>TOTAL</b>
             </td>
-            <td width="200px" style="text-align: left; border: 1px solid black; border-collapse: collapse;">
+            <td width="100px" style="text-align: left; border: 1px solid black; border-collapse: collapse;">
                 <b>{{ number_format($sum_tot_Price, 2, ',', '.') }}</b>
             </td>
             <td width="100px" style="text-align: left; border: 1px solid black; border-collapse: collapse;"></td>
