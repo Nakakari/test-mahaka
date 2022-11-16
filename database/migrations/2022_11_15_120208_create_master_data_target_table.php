@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('via_pembayaran', function (Blueprint $table) {
-            $table->id();
+        Schema::create('master_data_target', function (Blueprint $table) {
+            $table->increments('id');
+            $table->float('kode_rekening');
+            $table->string('nama_rekening');
+            $table->bigInteger('target');
+            $table->date('tgl_mulai');
+            $table->date('tgl_akhir');
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('via_pembayaran');
+        Schema::dropIfExists('master_data_target');
     }
 };

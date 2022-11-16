@@ -17,7 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->float('kode_rekening');
             $table->string('nama_rekening');
-            $table->string('via_bayar');
+            $table->integer('via_bayar');
             $table->date('tgl_setor');
             $table->integer('jml_bayar');
             $table->timestamps();

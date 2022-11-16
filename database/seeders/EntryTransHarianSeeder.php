@@ -18,28 +18,28 @@ class EntryTransHarianSeeder extends Seeder
         M_entryTransHarian::create([
             'kode_rekening' => 41101.01,
             'nama_rekening' => 'Pajak Hotel Bintang 1',
-            'via_bayar' => 'Bendahara',
+            'via_bayar' => 2,
             'tgl_setor' => '2021-10-02',
             'jml_bayar' => 2000000
         ]);
         M_entryTransHarian::create([
             'kode_rekening' => 41101.03,
             'nama_rekening' => 'Pajak Hotel Bintang 3',
-            'via_bayar' => 'Bank',
+            'via_bayar' => 1,
             'tgl_setor' => '2021-10-02',
             'jml_bayar' => 1500000
         ]);
         M_entryTransHarian::create([
             'kode_rekening' => 41101.02,
             'nama_rekening' => 'Pajak Hotel Bintang 2',
-            'via_bayar' => 'Bendahara',
+            'via_bayar' => 2,
             'tgl_setor' => '2021-10-09',
             'jml_bayar' => 1750000
         ]);
         M_entryTransHarian::create([
             'kode_rekening' => 41101.01,
             'nama_rekening' => 'Pajak Hotel Bintang 1',
-            'via_bayar' => 'Bank',
+            'via_bayar' => 1,
             'tgl_setor' => '2021-10-11',
             'jml_bayar' => 2000000
         ]);

@@ -12,17 +12,11 @@
                 </form>
             </div>
         </li>
-
-
-
-
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
                 aria-haspopup="false" aria-expanded="false">
                 <i class="dripicons-bell noti-icon"></i>
-
                 <span class="noti-icon-badge"></span>
-
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg">
 
@@ -37,13 +31,8 @@
                     </h5>
                 </div>
 
-                <!-- All-->
-
-
             </div>
         </li>
-
-
         <li class="notification-list">
             <a class="nav-link end-bar-toggle" href="javascript: void(0);">
                 <i class="dripicons-gear noti-icon"></i>
@@ -54,32 +43,15 @@
             <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#"
                 role="button" aria-haspopup="false" aria-expanded="false">
                 <span class="account-user-avatar">
-                    <img src="{{ asset('template') }}/assets/images/logo/logo-ayam.png" alt="user-image"
+                    <img src="{{ asset('template') }}/assets/images/users/avatar-1.jpg" alt="user-image"
                         class="rounded-circle">
                 </span>
                 <span>
-                    <span class="account-user-name">halo</span>
-
-                    <span class="account-position">Admin</span>
-
+                    <span class="account-user-name">Telur</span>
+                    <span class="account-position">Role</span>
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
-
-                {{-- <a href="{{ route('profile') }}" class="dropdown-item notify-item">
-                    <i class="mdi mdi-account-circle me-1"></i>
-                    <span>My Account</span>
-                </a> --}}
-                {{-- <a class="dropdown-item notify-item" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();"><i
-                        class="mdi mdi-logout me-1"></i>
-                    <span>Logout</span>
-                </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form> --}}
             </div>
         </li>
 

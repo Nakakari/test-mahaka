@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             EntryTransHarianSeeder::class,
-            MasterDataTargetSeeder::class
+            MasterDataTargetSeeder::class,
+            EntryViaPembayaran::class,
         ]);
     }
 }
