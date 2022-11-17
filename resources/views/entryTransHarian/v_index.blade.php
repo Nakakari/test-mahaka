@@ -448,15 +448,18 @@
             var dari_tanggal = $('#filter-tanggal-dari').val();
             var sampai_tanggal = $('#filter-tanggal-sampai').val();
             var via = $('#filter-via-bayar').val();
+
+            var tamp_via = ``
+            if (via == 1) {
+                tamp_via += `Bank`
+            } else if (via == 2) {
+                tamp_via += `Bendahara`
+            } else {
+                tamp_via += via
+            }
+
             if (dari_tanggal != '' && sampai_tanggal != '' && via != '') {
-                var tamp_via = ``
-                if (via == 1) {
-                    tamp_via += `Bank`
-                } else if (via == 2) {
-                    tamp_via += `Bendahara`
-                } else {
-                    tamp_via += via
-                }
+
                 $('#export-excell').modal('show')
 
                 $('#export-excell #kata-modal-excell').html(`Exporting data dari tanggal ` + dari_tanggal + ` sd ` +
@@ -485,15 +488,6 @@
                     $('#warning-alert-modal').modal('hide')
                 }, 2000));
             } else if (via != '') {
-                var tamp_via = ``
-                if (via == 1) {
-                    tamp_via += `Bank`
-                } else if (via == 2) {
-                    tamp_via += `Bendahara`
-                } else {
-                    tamp_via += via
-                }
-
                 $('#export-excell').modal('show')
 
                 $('#export-excell #kata-modal-excell').html(`Exporting data berdasar via ` +

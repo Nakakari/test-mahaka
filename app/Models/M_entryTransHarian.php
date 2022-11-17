@@ -25,7 +25,7 @@ class M_entryTransHarian extends Model
             ->leftjoin('entry_trans_harian', 'entry_trans_harian.kode_rekening', '=', 'master_data_target.kode_rekening')
             ->where('master_data_target.tgl_mulai', '>=', $dari)
             ->where('master_data_target.tgl_akhir', '<=',  $sampai)
-            ->where('entry_trans_harian.kode_rekening', '<=',  $via)
+            ->where('entry_trans_harian.kode_rekening', '=',  $via)
             ->groupBy('tabel_rekening.kode_rekening', 'tabel_rekening.nama_rekening')
             ->having(DB::raw('count(*)'), '>=', 1)
             ->get();
