@@ -28,7 +28,8 @@ Jawaban Test Fullstack Programmer CV. Mahaka Digital Indonesia
     composer install --ignore-platform-reqs 
     ```
 4. Buat database dengan nama 'test-mahaka'.
-    Silakan buka file .env pada IDE Anda, kemudian cek kodingan berikut:
+   
+5.  Silakan buka file .env pada IDE Anda, kemudian cek kodingan berikut:
     ```
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
@@ -37,15 +38,11 @@ Jawaban Test Fullstack Programmer CV. Mahaka Digital Indonesia
     DB_USERNAME=root
     DB_PASSWORD=
     ```
-5. Generate app key
-    ```
-     php artisan key:generate
-    ```
 6. Generate migration
     ```
      php artisan migrate
     ```
-7. Input data dummy
+7. Generate data dummy
     ```
     php artisan db:seed
     ```
