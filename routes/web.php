@@ -43,3 +43,4 @@ Route::post('/list_entry_trans_harian', [entryTransHarianController::class, 'lis
 Route::post('/delete_entry_trans_harian', [entryTransHarianController::class, 'delete_data']);
 Route::post('/excell_entry_trans_harian', [entryTransHarianController::class, 'excell_data']);
 Route::get('/form_entry', [entryTransHarianController::class, 'form_data']);
+Route::post('/add_entry', [entryTransHarianController::class, 'add_data']);

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('kode_rekening');
             $table->integer('via_bayar');
             $table->date('tgl_setor');
-            $table->integer('jml_bayar');
+            $table->bigInteger('jml_bayar');
             $table->timestamps();
         });
     }

@@ -34,7 +34,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="header-title">Tambah Data</h4>
-                    <form id="form-tambah" enctype="multipart/form-data" method="POST" action="/add_master_data_target">
+                    <form id="form-tambah" enctype="multipart/form-data" method="POST" action="/add_entry">
                         {{ csrf_field() }}
 
                         <div class="row">
@@ -71,20 +71,20 @@
                             </div>
                             <div class="col-4 mb-2">
                                 <label for="inputCity" class="form-label">Tanggal Setor</label>
-                                <input type="date" class="form-control" id="awal_berlaku" name="awal_berlaku"
-                                    value="{{ old('awal_berlaku') }}" required>
-                                <div class="invalid-feedback-awal_berlaku feedback"></div>
-                                @if ($errors->has('awal_berlaku'))
-                                    <span class="text-danger">{{ $errors->first('awal_berlaku') }}</span>
+                                <input type="date" class="form-control" id="tgl_setor" name="tgl_setor"
+                                    value="{{ old('tgl_setor') }}" required>
+                                <div class="invalid-feedback-tgl_setor feedback"></div>
+                                @if ($errors->has('tgl_setor'))
+                                    <span class="text-danger">{{ $errors->first('tgl_setor') }}</span>
                                 @endif
                             </div>
                             <div class="col-4 mb-2">
                                 <label for="inputCity" class="form-label">Jumlah Setor</label>
-                                <input type="number" class="form-control" id="akhir_berlaku" name="akhir_berlaku"
-                                    value="{{ old('akhir_berlaku') }}" required>
-                                <div class="invalid-feedback-akhir_berlaku feedback"></div>
-                                @if ($errors->has('akhir_berlaku'))
-                                    <span class="text-danger">{{ $errors->first('akhir_berlaku') }}</span>
+                                <input type="number" class="form-control" id="jml_bayar" name="jml_bayar"
+                                    value="{{ old('jml_bayar') }}" required>
+                                <div class="invalid-feedback-jml_bayar feedback"></div>
+                                @if ($errors->has('jml_bayar'))
+                                    <span class="text-danger">{{ $errors->first('jml_bayar') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -100,25 +100,25 @@
     <script type="text/javascript">
         $(document).ready(function() {
             // Validasi Form
-            $('#awal_berlaku').on('input', function() {
+            $('#tgl_setor').on('input', function() {
                 var instansi = $(this).val();
                 if (instansi.length == 0) {
-                    $('.invalid-feedback-awal_berlaku').addClass('invalid-msg').text(
+                    $('.invalid-feedback-tgl_setor').addClass('invalid-msg').text(
                         "Data dimohon tidak boleh kosong!");
                     $(this).addClass('is-invalid').removeClass('is-valid');
                 } else {
-                    $('.invalid-feedback-awal_berlaku').empty();
+                    $('.invalid-feedback-tgl_setor').empty();
                     $(this).addClass('is-valid').removeClass('is-invalid');
                 }
             });
-            $('#akhir_berlaku').on('input', function() {
+            $('#jml_bayar').on('input', function() {
                 var instansi = $(this).val();
                 if (instansi.length == 0) {
-                    $('.invalid-feedback-akhir_berlaku').addClass('invalid-msg').text(
+                    $('.invalid-feedback-jml_bayar').addClass('invalid-msg').text(
                         "Data dimohon tidak boleh kosong!");
                     $(this).addClass('is-invalid').removeClass('is-valid');
                 } else {
-                    $('.invalid-feedback-akhir_berlaku').empty();
+                    $('.invalid-feedback-jml_bayar').empty();
                     $(this).addClass('is-valid').removeClass('is-invalid');
                 }
             });

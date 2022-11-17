@@ -123,4 +123,19 @@ class entryTransHarianController extends Controller
         ];
         return view('entryTransHarian.v_form', $data);
     }
+
+    public function add_data(Request $request)
+    {
+        if (is_array($request->get('kode_rekening')) || is_object($request->get('kode_rekening'))) {
+            foreach ($request->get('kode_rekening') as $kode) {
+                M_entryTransHarian::create([
+                    'via_bayar' => $request->get('via_bayar'),
+                    'tgl_setor' => $request->get('tgl_setor'),
+                    'jml_bayar' => $request->get('jml_bayar'),
+                    'kode_rekening' => $kode
+                ]);
+            }
+        }
+        return redirect('/trans_harian');
+    }
 }
