@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exports\entryDataTargetExport;
+use App\Exports\viaBayarExport;
 use App\Models\M_entryTransHarian;
+use App\Models\M_rekening;
 use App\Models\M_viaBayar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -104,9 +106,21 @@ class entryTransHarianController extends Controller
                 return Excel::download(new entryDataTargetExport($dari, $sampai, $year_dari, $year_sampai, $nama_via, $via), 'Laporan Pendapatan Asli Daerah Via ' . $nama_via . ' Tahun ' . $year_dari . ' sd ' . $year_sampai . '.xlsx');
             }
         } else {
-            // dd(M_masterDataTarget::lastTanggal()->tgl_sampai);
-            // return Excel::download(new allData_masterDataTargetExport, 'All Data Master Target Export.xlsx');
-            return "aa";
+
+            $nama_via = M_viaBayar::getVia($via)->via_bayar;
+
+            return Excel::download(new  viaBayarExport($nama_via, $via), 'Laporan Pendapatan Asli Daerah Via ' . $nama_via . '.xlsx');
+            // return "aa";
         }
+    }
+
+    public function form_data()
+    {
+        $data = [
+            'title' => 'Tambah Transaksi Harian',
+            'rekening' => M_rekening::all(),
+            'via_bayar' => M_viaBayar::all(),
+        ];
+        return view('entryTransHarian.v_form', $data);
     }
 }

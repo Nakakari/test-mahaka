@@ -25,7 +25,23 @@ class M_entryTransHarian extends Model
             ->leftjoin('entry_trans_harian', 'entry_trans_harian.kode_rekening', '=', 'master_data_target.kode_rekening')
             ->where('master_data_target.tgl_mulai', '>=', $dari)
             ->where('master_data_target.tgl_akhir', '<=',  $sampai)
-            ->where('entry_trans_harian.kode_rekening', '=',  $via)
+            ->where('entry_trans_harian.via_bayar', '=',  $via)
+            ->groupBy('tabel_rekening.kode_rekening', 'tabel_rekening.nama_rekening')
+            ->having(DB::raw('count(*)'), '>=', 1)
+            ->get();
+    }
+
+    public static function basedVia($via)
+    {
+        return DB::table('master_data_target')
+            ->select(
+                'tabel_rekening.kode_rekening',
+                'tabel_rekening.nama_rekening',
+                DB::raw('SUM(target) as total_target'),
+            )
+            ->join('tabel_rekening', 'tabel_rekening.id', '=', 'master_data_target.kode_rekening')
+            ->join('entry_trans_harian', 'entry_trans_harian.kode_rekening', '=', 'master_data_target.kode_rekening')
+            ->where('entry_trans_harian.via_bayar', '=',  $via)
             ->groupBy('tabel_rekening.kode_rekening', 'tabel_rekening.nama_rekening')
             ->having(DB::raw('count(*)'), '>=', 1)
             ->get();

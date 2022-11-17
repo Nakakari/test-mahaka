@@ -275,6 +275,35 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    <div id="export-excell2" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="success-header-modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header bg-success">
+                    <h4 class="modal-title" id="success-header-modalLabel">Export Data ke Excell</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="kata-modal-excell"></p>
+                    <p class="text-muted font-14 hidden" id="pesan-id2">
+                        Gunakan <code>filter dari tanggal</code>, <code>filter sampai tanggal</code>, dan <code>filter via
+                            bayar</code>
+                        untuk mencetak data berdasarkan filter.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <form id="form-excell2" action="{{ url('') }}/excell_master_data_target" method="post"
+                        class="hidden">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="dari" />
+                        <input type="hidden" name="sampai" />
+                        <button type="button" class="btn btn-light hidden" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success hidden">Continue</button>
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     {{-- Modal Warning --}}
     <div id="warning-alert-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-sm">
@@ -476,20 +505,28 @@
                     $('#export-excell').modal('hide')
                 }, 3000));
             } else if (dari_tanggal != '' && sampai_tanggal != '' && via == '') {
-                $('#export-excell').modal('show')
+                $('#export-excell2').modal('show')
+                $("#form-excell2 [name='dari']").val(dari_tanggal)
+                $("#form-excell2 [name='sampai']").val(sampai_tanggal)
 
-                $('#export-excell #kata-modal-excell').html(`Exporting data dari tanggal ` + dari_tanggal + ` sd ` +
+
+                $('#export-excell2 #kata-modal-excell').html(`Exporting data dari tanggal ` + dari_tanggal + ` sd ` +
                     sampai_tanggal + '...')
-                $('#pesan-id').addClass('hidden')
+                $('#pesan-id2').addClass('hidden')
+                $("#form-excell2").submit()
             } else if (dari_tanggal != '' || sampai_tanggal != '') {
                 $('#warning-alert-modal').modal('show')
+
                 clearTimeout($('#warning-alert-modal').data('hideInterval'))
                 $('#warning-alert-modal').data('hideInterval', setTimeout(function() {
                     $('#warning-alert-modal').modal('hide')
                 }, 2000));
             } else if (via != '') {
                 $('#export-excell').modal('show')
-
+                $("#form-excell [name='dari']").val(dari_tanggal)
+                $("#form-excell [name='sampai']").val(sampai_tanggal)
+                $("#form-excell [name='via']").val(via)
+                $("#form-excell").submit()
                 $('#export-excell #kata-modal-excell').html(`Exporting data berdasar via ` +
                     tamp_via + '...')
                 $('#pesan-id').addClass('hidden')
@@ -508,6 +545,10 @@
                     $('#export-excell').modal('hide')
                 }, 4000));
             }
+        }
+
+        function tambahData() {
+            window.location.href = "/form_entry";
         }
     </script>
 @stop

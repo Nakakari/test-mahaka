@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\entryDataTargetExport;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\entryTransHarianController;
 use App\Http\Controllers\masterDataTargetController;
@@ -41,3 +42,4 @@ Route::get('/trans_harian', [entryTransHarianController::class, 'index']);
 Route::post('/list_entry_trans_harian', [entryTransHarianController::class, 'list_data']);
 Route::post('/delete_entry_trans_harian', [entryTransHarianController::class, 'delete_data']);
 Route::post('/excell_entry_trans_harian', [entryTransHarianController::class, 'excell_data']);
+Route::get('/form_entry', [entryTransHarianController::class, 'form_data']);
