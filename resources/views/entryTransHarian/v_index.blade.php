@@ -168,6 +168,8 @@
                             {{ csrf_field() }}
                             <input type="hidden" name="id" id="id" />
                             <button type="submit" class="btn btn-light my-2" data-bs-dismiss="modal">Lanjut</button>
+                            <button type="button" class="btn btn-light my-2" data-bs-dismiss="modal"
+                                aria-hidden="true">Batal</button>
                         </form>
                     </div>
                 </div>
@@ -447,27 +449,56 @@
             var sampai_tanggal = $('#filter-tanggal-sampai').val();
             var via = $('#filter-via-bayar').val();
             if (dari_tanggal != '' && sampai_tanggal != '' && via != '') {
+                var tamp_via = ``
+                if (via == 1) {
+                    tamp_via += `Bank`
+                } else if (via == 2) {
+                    tamp_via += `Bendahara`
+                } else {
+                    tamp_via += via
+                }
                 $('#export-excell').modal('show')
 
                 $('#export-excell #kata-modal-excell').html(`Exporting data dari tanggal ` + dari_tanggal + ` sd ` +
-                    sampai_tanggal + '...')
+                    sampai_tanggal + ` & via bayar ` + tamp_via + '...')
                 $('#pesan-id').addClass('hidden')
 
                 $("#form-excell [name='dari']").val(dari_tanggal)
                 $("#form-excell [name='sampai']").val(sampai_tanggal)
                 $("#form-excell [name='via']").val(via)
-                // $("#form-excell").submit()
+                $("#form-excell").submit()
 
                 clearTimeout($('#export-excell').data('hideInterval'))
                 $('#export-excell').data('hideInterval', setTimeout(function() {
                     $('#export-excell').modal('hide')
                 }, 3000));
-            } else if (dari_tanggal != '' || sampai_tanggal != '' || via != '') {
+            } else if (dari_tanggal != '' && sampai_tanggal != '' && via == '') {
+                $('#export-excell').modal('show')
+
+                $('#export-excell #kata-modal-excell').html(`Exporting data dari tanggal ` + dari_tanggal + ` sd ` +
+                    sampai_tanggal + '...')
+                $('#pesan-id').addClass('hidden')
+            } else if (dari_tanggal != '' || sampai_tanggal != '') {
                 $('#warning-alert-modal').modal('show')
                 clearTimeout($('#warning-alert-modal').data('hideInterval'))
                 $('#warning-alert-modal').data('hideInterval', setTimeout(function() {
                     $('#warning-alert-modal').modal('hide')
                 }, 2000));
+            } else if (via != '') {
+                var tamp_via = ``
+                if (via == 1) {
+                    tamp_via += `Bank`
+                } else if (via == 2) {
+                    tamp_via += `Bendahara`
+                } else {
+                    tamp_via += via
+                }
+
+                $('#export-excell').modal('show')
+
+                $('#export-excell #kata-modal-excell').html(`Exporting data berdasar via ` +
+                    tamp_via + '...')
+                $('#pesan-id').addClass('hidden')
             } else {
                 $('#export-excell').modal('show')
                 $('#export-excell #kata-modal-excell').html(`Exporting seluruh data..`)

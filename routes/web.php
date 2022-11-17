@@ -40,4 +40,4 @@ Route::post('/pdf_master_data_target', [masterDataTargetController::class, 'down
 Route::get('/trans_harian', [entryTransHarianController::class, 'index']);
 Route::post('/list_entry_trans_harian', [entryTransHarianController::class, 'list_data']);
 Route::post('/delete_entry_trans_harian', [entryTransHarianController::class, 'delete_data']);
-Route::post('/excell_entry_trans_harian', [masterDataTargetController::class, 'excell_data']);
+Route::post('/excell_entry_trans_harian', [entryTransHarianController::class, 'excell_data']);

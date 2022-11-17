@@ -188,6 +188,8 @@
                             {{ csrf_field() }}
                             <input type="hidden" name="id" id="id" />
                             <button type="submit" class="btn btn-light my-2" data-bs-dismiss="modal">Lanjut</button>
+                            <button type="button" class="btn btn-light my-2" data-bs-dismiss="modal"
+                                aria-hidden="true">Batal</button>
                         </form>
                     </div>
                 </div>

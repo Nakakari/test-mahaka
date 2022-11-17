@@ -45,14 +45,16 @@
                          <li>
                              <a href="/rekening">Daftar Rekening</a>
                          </li>
-                         <li>
-                             <a href="/data_target">Data Target</a>
-                         </li>
                      </ul>
                  </div>
              </li>
-
-
+             <li class="side-nav-title side-nav-item">Data Target</li>
+             <li class="side-nav-item">
+                 <a href="/data_target" class="side-nav-link">
+                     <i class="mdi mdi-vector-difference"></i>
+                     <span> Data Target </span>
+                 </a>
+             </li>
              <li class="side-nav-title side-nav-item">Entry Transaksi Harian</li>
              <li class="side-nav-item active">
                  <a href="/trans_harian" class="side-nav-link">

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Exports\allData_masterDataTargetExport;
+use App\Exports\entryDataTargetExport;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use App\Exports\masterDataTargetExport;
 use App\Models\M_masterDataTarget;
 use App\Models\M_rekening;
+use App\Models\M_viaBayar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +19,8 @@ class masterDataTargetController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Master Data Target'
+            'title' => 'Master Data Target',
+            'via_bayar' => M_viaBayar::all(),
         ];
         return view('masterDataTarget.v_index', $data);
     }
@@ -42,12 +45,17 @@ class masterDataTargetController extends Controller
             'tgl_akhir',
             'tgl_mulai',
         ])
+            ->leftjoin('entry_trans_harian', 'entry_trans_harian.kode_rekening', '=', 'master_data_target.kode_rekening')
             ->join('tabel_rekening', 'tabel_rekening.id', '=', 'master_data_target.kode_rekening')
-            ->orderBy('created_at', "desc");
+            ->orderBy('master_data_target.created_at', "desc");
 
         if (request()->input('dari') != null && request()->input('sampai') != null) {
             $data = $data->where('master_data_target.tgl_mulai', '>=', request()->dari)
                 ->where('master_data_target.tgl_akhir', '<=',  request()->sampai);
+        }
+
+        if (request()->input('via') != null) {
+            $data = $data->where('entry_trans_harian.via_bayar', request()->via);
         }
 
         if (request()->input("search.value") != null) {
@@ -160,23 +168,33 @@ class masterDataTargetController extends Controller
 
     public function excell_data()
     {
+        // dd(request()->all());
         $dari = request()->input('dari');
         $sampai = request()->input('sampai');
-        // dd(M_masterDataTarget::basedTanggal($dari, $sampai));
-        if (request()->input('dari') != null && request()->input('sampai') != null) {
+        $via = request()->input('via');
 
 
-            $year_dari = Carbon::createFromFormat('Y-m-d', $dari)->format('Y');
-            $year_sampai = Carbon::createFromFormat('Y-m-d', $sampai)->format('Y');
+        $year_dari = Carbon::createFromFormat('Y-m-d', $dari)->format('Y');
+        $year_sampai = Carbon::createFromFormat('Y-m-d', $sampai)->format('Y');
+        $nama_via = M_viaBayar::getVia($via)->via_bayar;
+
+
+        if ($dari != null && $sampai != null && $via != null) {
 
             if ($year_dari == $year_sampai) {
-                return Excel::download(new masterDataTargetExport($dari, $sampai, $year_dari, $year_sampai), 'Data Master Target Export ' . $year_dari . '.xlsx');
+                return Excel::download(new entryDataTargetExport($dari, $sampai, $year_dari, $year_sampai, $nama_via, $via), 'Laporan Pendapatan Asli Daerah Via ' . $nama_via . ' Tahun ' . $year_dari . '.xlsx');
             } else {
-                return Excel::download(new masterDataTargetExport($dari, $sampai, $year_dari, $year_sampai), 'Data Master Target Export ' . $year_dari . ' sd ' . $year_sampai . '.xlsx');
+                return Excel::download(new entryDataTargetExport($dari, $sampai, $year_dari, $year_sampai, $nama_via, $via), 'Laporan Pendapatan Asli Daerah Via ' . $nama_via . ' Tahun ' . $year_dari . ' sd ' . $year_sampai . '.xlsx');
+            }
+        } else if ($dari != null && $sampai != null) {
+            if ($year_dari == $year_sampai) {
+                return Excel::download(new masterDataTargetExport($dari, $sampai, $year_dari, $year_sampai), 'Laporan Pendapatan Asli Daerah ' . $year_dari . '.xlsx');
+            } else {
+                return Excel::download(new masterDataTargetExport($dari, $sampai, $year_dari, $year_sampai), 'Laporan Pendapatan Asli Daerah ' . $year_dari . ' sd ' . $year_sampai . '.xlsx');
             }
         } else {
             // dd(M_masterDataTarget::lastTanggal()->tgl_sampai);
-            return Excel::download(new allData_masterDataTargetExport, 'All Data Master Target Export.xlsx');
+            return Excel::download(new allData_masterDataTargetExport, 'All Laporan Pendapatan Asli Daerah.xlsx');
         }
     }
 
@@ -196,6 +214,6 @@ class masterDataTargetController extends Controller
         ];
 
         $pdf = PDF::loadView('masterDataTarget.v_exportPdf', $data)->setPaper('a4', 'landscape');
-        return $pdf->download('Data Master Target Export ' . $year_dari . '.pdf');
+        return $pdf->download('Laporan Pendapatan Asli Daerah ' . $year_dari . '.pdf');
     }
 }

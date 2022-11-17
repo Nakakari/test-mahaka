@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\entryDataTargetExport;
 use App\Models\M_entryTransHarian;
 use App\Models\M_viaBayar;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class entryTransHarianController extends Controller
 {
@@ -77,5 +80,33 @@ class entryTransHarianController extends Controller
         $item = M_entryTransHarian::findOrFail(request()->input('id'));
         $item->delete();
         return response()->json(true);
+    }
+
+    public function excell_data()
+    {
+        // dd(request()->all());
+        $dari = request()->input('dari');
+        $sampai = request()->input('sampai');
+        $via = request()->input('via');
+
+        if ($dari != null && $sampai != null && $via != null) {
+
+
+            $year_dari = Carbon::createFromFormat('Y-m-d', $dari)->format('Y');
+            $year_sampai = Carbon::createFromFormat('Y-m-d', $sampai)->format('Y');
+            $nama_via = M_viaBayar::getVia($via)->via_bayar;
+
+            // dd($nama_via);
+
+            if ($year_dari == $year_sampai) {
+                return Excel::download(new entryDataTargetExport($dari, $sampai, $year_dari, $year_sampai, $nama_via, $via), 'Laporan Pendapatan Asli Daerah Via ' . $nama_via . ' Tahun ' . $year_dari . '.xlsx');
+            } else {
+                return Excel::download(new entryDataTargetExport($dari, $sampai, $year_dari, $year_sampai, $nama_via, $via), 'Laporan Pendapatan Asli Daerah Via ' . $nama_via . ' Tahun ' . $year_dari . ' sd ' . $year_sampai . '.xlsx');
+            }
+        } else {
+            // dd(M_masterDataTarget::lastTanggal()->tgl_sampai);
+            // return Excel::download(new allData_masterDataTargetExport, 'All Data Master Target Export.xlsx');
+            return "aa";
+        }
     }
 }

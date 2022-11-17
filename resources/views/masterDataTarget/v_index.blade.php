@@ -75,14 +75,25 @@
                                 </div>
                         @endif
                         <div class="row">
-                            <div class="col-md-6 mb-2">
+                            <div class="col-md-4 mb-2">
                                 <label class="form-label">Dari Tanggal</label>
                                 <input type="date" class="form-control" onchange="filter()" id="filter-tanggal-dari">
                             </div>
-                            <div class="col-md-6 mb-2">
+                            <div class="col-md-4 mb-2">
                                 <label class="form-label">Sampai Tanggal</label>
                                 <input type="date" class="form-control" onchange="filter()" id="filter-tanggal-sampai">
                             </div>
+                            <div class="col-md-4 mb-2">
+                                <label for="status-select" class="form-label">Via Bayar</label>
+                                <select class="form-select filter select2" id="filter-via-bayar" data-toggle="select2"
+                                    onchange="filter()">
+                                    <option value="" selected>Semua Via Bayar</option>
+                                    @foreach ($via_bayar as $p)
+                                        <option value="{{ $p->id }}"> {{ $p->via_bayar }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div><!-- end col-->
                         </div>
                         <hr>
 
@@ -137,6 +148,8 @@
                             {{ csrf_field() }}
                             <input type="hidden" name="id" id="id" />
                             <button type="submit" class="btn btn-light my-2" data-bs-dismiss="modal">Lanjut</button>
+                            <button type="button" class="btn btn-light my-2" data-bs-dismiss="modal"
+                                aria-hidden="true">Batal</button>
                         </form>
                     </div>
                 </div>
@@ -233,6 +246,7 @@
                         {{ csrf_field() }}
                         <input type="hidden" name="dari" />
                         <input type="hidden" name="sampai" />
+                        <input type="hidden" name="via" />
                         <button type="button" class="btn btn-light hidden" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-success hidden">Continue</button>
                     </form>
@@ -282,7 +296,8 @@
                 data: function(d) {
                     d._token = "{{ csrf_token() }}",
                         d.dari = $("#filter-tanggal-dari").val(),
-                        d.sampai = $("#filter-tanggal-sampai").val()
+                        d.sampai = $("#filter-tanggal-sampai").val(),
+                        d.via = $('#filter-via-bayar').val()
                 }
             },
             "columnDefs": [{
@@ -445,16 +460,45 @@
         function exportExcel() {
             var dari_tanggal = $('#filter-tanggal-dari').val();
             var sampai_tanggal = $('#filter-tanggal-sampai').val();
-            if (dari_tanggal != '' && sampai_tanggal != '') {
+            var via = $('#filter-via-bayar').val();
+
+            var tamp_via = ``
+            if (via == 1) {
+                tamp_via += `Bank`
+            } else if (via == 2) {
+                tamp_via += `Bendahara`
+            } else {
+                tamp_via += via
+            }
+
+            if (dari_tanggal != '' && sampai_tanggal != '' && via != '') {
+
                 $('#export-excell').modal('show')
 
                 $('#export-excell #kata-modal-excell').html(`Exporting data dari tanggal ` + dari_tanggal + ` sd ` +
-                    sampai_tanggal + '...')
+                    sampai_tanggal + ` & via bayar ` + tamp_via + '...')
                 $('#pesan-id').addClass('hidden')
 
                 $("#form-excell [name='dari']").val(dari_tanggal)
                 $("#form-excell [name='sampai']").val(sampai_tanggal)
+                $("#form-excell [name='via']").val(via)
                 $("#form-excell").submit()
+
+                clearTimeout($('#export-excell').data('hideInterval'))
+                $('#export-excell').data('hideInterval', setTimeout(function() {
+                    $('#export-excell').modal('hide')
+                }, 3000));
+            } else if (dari_tanggal != '' && sampai_tanggal != '' && via == '') {
+                $('#export-excell').modal('show')
+
+                $('#export-excell #kata-modal-excell').html(`Exporting data dari tanggal ` + dari_tanggal + ` sd ` +
+                    sampai_tanggal + '...')
+
+                $("#form-excell [name='dari']").val(dari_tanggal)
+                $("#form-excell [name='sampai']").val(sampai_tanggal)
+                $("#form-excell [name='via']").val(via)
+
+                $('#pesan-id').addClass('hidden')
 
                 clearTimeout($('#export-excell').data('hideInterval'))
                 $('#export-excell').data('hideInterval', setTimeout(function() {
@@ -466,6 +510,21 @@
                 $('#warning-alert-modal').data('hideInterval', setTimeout(function() {
                     $('#warning-alert-modal').modal('hide')
                 }, 2000));
+            } else if (via != '') {
+                $('#export-excell').modal('show')
+
+                $('#export-excell #kata-modal-excell').html(`Exporting data berdasar via ` +
+                    tamp_via + '...')
+                $('#pesan-id').addClass('hidden')
+
+                $("#form-excell [name='dari']").val(dari_tanggal)
+                $("#form-excell [name='sampai']").val(sampai_tanggal)
+                $("#form-excell [name='via']").val(via)
+
+                clearTimeout($('#export-excell').data('hideInterval'))
+                $('#export-excell').data('hideInterval', setTimeout(function() {
+                    $('#export-excell').modal('hide')
+                }, 3000));
             } else {
                 $('#export-excell').modal('show')
                 $('#export-excell #kata-modal-excell').html(`Exporting seluruh data..`)
@@ -473,6 +532,7 @@
 
                 $("#form-excell [name='dari']").val(dari_tanggal)
                 $("#form-excell [name='sampai']").val(sampai_tanggal)
+                $("#form-excell [name='via']").val(via)
 
                 $("#form-excell").submit()
 
